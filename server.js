@@ -31,9 +31,9 @@ app.use("/edit", editRoutes);
 
 // Route to handle adding a new student
 app.post("/add-student", (req, res) => {
-  const student = req.body;
-  const {
+  const { 
     fullName,
+    rollNo,
     age,
     dateOfBirth,
     classOfStudy,
@@ -42,14 +42,28 @@ app.post("/add-student", (req, res) => {
     grade,
   } = req.body;
 
+  // Convert subjects to an array if it's a single string
+  const subjectsArray = Array.isArray(subjects) ? subjects : [subjects];
+
   // Convert marks to numbers
   const marks = {};
-  subjects.forEach((subject) => {
+  subjectsArray.forEach((subject) => {
     marks[subject] = parseInt(req.body[`${subject}-marks`]);
   });
 
-  // Include marks in the student object
-  student.marks = marks;
+  // Construct the student object
+  const student = {
+    fullName,
+    rollNo,
+    age,
+    dateOfBirth,
+    classOfStudy,
+    subjects: subjectsArray,
+    percentage,
+    grade,
+    marks
+  };
+
   // Load existing student data from the file, if any
   let students = [];
   try {
@@ -61,7 +75,6 @@ app.post("/add-student", (req, res) => {
 
   // Add the new student
   students.push(student);
-  console.log(student);
 
   // Write updated student data back to the file
   fs.writeFile("students.txt", JSON.stringify(students), (err) => {
@@ -73,6 +86,7 @@ app.post("/add-student", (req, res) => {
     }
   });
 });
+
 
 // Route to handle updating a student
 app.post("/update-student", (req, res) => {
@@ -158,8 +172,6 @@ app.get("/delete/:id", (req, res) => {
   }
 });
 
-
-
 // Endpoint to get all students
 app.get("/studentss", async (req, res) => {
   try {
@@ -236,7 +248,6 @@ app.post("/searchName", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-
 
 //   //console.log(req.body);
 //   const rollNumber = req.body.rollNumber;
