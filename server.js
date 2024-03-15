@@ -158,7 +158,7 @@ app.get("/delete/:id", (req, res) => {
   }
 });
 
-// Route to handle deleting a student
+
 
 // Endpoint to get all students
 app.get("/studentss", async (req, res) => {

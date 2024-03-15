@@ -59,35 +59,39 @@
     </style>
   </head>
   <body>
-      <%- include('index.ejs') %>
-      <div class="students-container">
-        <% students.forEach(function(student) { %>
-        <div class="student-card">
-          <h2><%= student.fullName %></h2>
-          <p>Roll Number: <%= student.rollNo %></p>
-          <p>Age: <%= student.age %></p>
-          <p>Date of Birth: <%= student.dateOfBirth %></p>
-          <p>Class: <%= student.classOfStudy %></p>
-          <p>Subjects: <%= student.subjects.join(', ') %></p>
-          <p>Percentage: <%= student.percentage %></p>
-          <p>Grade: <%= student.grade %></p>
-          <p>Marks:</p>
-          <ul>
-            <% Object.keys(student.marks).forEach((subject) => { %>
-            <li><%= subject %>: <%= student.marks[subject] %></li>
-            <% }); %>
-          </ul>
-          <p>
-            <a href="/edit/student/<%= student.rollNo %>">
-              <i class="fas fa-edit"></i> Edit
-            </a>
-            <a href="/delete/<%= student.rollNo %>">
-              <i class="fas fa-trash-alt"></i> Delete
-            </a>
-          </p>
+      <div>
+        <%- include('index.ejs') %>
+        <div class="students-container">
+        
+          <% students.forEach(function(student) { %>
+          <div class="student-card">
+            <h2><%= student.fullName %></h2>
+            <p>Roll Number: <%= student.rollNo %></p>
+            <p>Age: <%= student.age %></p>
+            <p>Date of Birth: <%= student.dateOfBirth %></p>
+            <p>Class: <%= student.classOfStudy %></p>
+            <p>Subjects: <%= student.subjects.join(', ') %></p>
+            <p>Percentage: <%= student.percentage %></p>
+            <p>Grade: <%= student.grade %></p>
+            <p>Marks:</p>
+            <ul>
+              <% Object.keys(student.marks).forEach((subject) => { %>
+              <li><%= subject %>: <%= student.marks[subject] %></li>
+              <% }); %>
+            </ul>
+            <p>
+              <a href="/edit/student/<%= student.rollNo %>">
+                <i class="fas fa-edit"></i> Edit
+              </a>
+              <a href="/delete/<%= student.rollNo %>">
+                <i class="fas fa-trash-alt"></i> Delete
+              </a>
+            </p>
+          </div>
+          <% }); %>
         </div>
-        <% }); %>
       </div>
+      
     </div>
   </body>
 </html>
